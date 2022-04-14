@@ -15,7 +15,7 @@ public class main {
     static FondoPanel fondo =  new FondoPanel();
     public static void main(String[] args) {
         Pista p = new Pista();
-        p.t = new Tortuga(0,0,100,200);
+        p.t = new Tortuga(0,0,100,100);
         p.t.setBackground(Color.black);
         
         p.add(p.t);
