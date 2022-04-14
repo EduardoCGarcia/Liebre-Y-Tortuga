@@ -22,30 +22,10 @@ public class Pista extends javax.swing.JFrame {
      * Creates new form Pista
      */
     public Pista() {
-        t = new Tortuga(0, 50, 100, 100);
-        t.setRuta("tortuga.png");
-        
-        lblTortuga.setText("Makuin");
-        lblTortuga.setBounds(0, 150, 100, 40);
-        lblTortuga.setHorizontalAlignment(SwingConstants.CENTER);
-        
-        o = new Tortuga(0, 200, 100, 100);
-        o.setRuta("tortuga.png");
-        
-        lblTor.setText("Thor-Tuga");
-        lblTor.setBounds(0, 300, 100, 40);
-        lblTor.setHorizontalAlignment(SwingConstants.CENTER);
-        
-        pnlCamino.setBackground(Color.red);
-        pnlCaminoTor.setBackground(Color.blue);
+        crearCorredores();
         initComponents();
         
-        this.add(pnlCamino);
-        this.add(pnlCaminoTor);
-        this.add(lblTortuga);
-        this.add(lblTor);
-        this.add(t);
-        this.add(o);
+        
 
     }
 
@@ -104,18 +84,8 @@ public class Pista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        ganador = false;
-        lblMensajeGanador.setText("");
-        lblMensajePerdedor.setText("");
-        tortuga = new HiloTortuga(t, 0, 50, "Makuin", lblTortuga,pnlCamino);
-        tor = new HiloTortuga(o, 0, 200, "Thor-Tuga", lblTor,pnlCaminoTor);
-
-        tor.start();
-        tortuga.start();
-        
-        System.out.println("******");
-        repaint();
-
+        this.crearHilosDemonio();
+        this.crearHilosCorredores();
     }//GEN-LAST:event_btnInicioActionPerformed
 
 
@@ -153,5 +123,56 @@ public class Pista extends javax.swing.JFrame {
             super.paint(g);
         }
     }
+    
+    public void crearCorredores(){
+        t = new Tortuga(0, 50, 100, 100);
+        t.setRuta("tortuga.png");
+        
+        lblTortuga.setText("Makuin");
+        lblTortuga.setBounds(0, 150, 100, 40);
+        lblTortuga.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        o = new Tortuga(0, 200, 100, 100);
+        o.setRuta("tortuga.png");
+        
+        lblTor.setText("Thor-Tuga");
+        lblTor.setBounds(0, 300, 100, 40);
+        lblTor.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        pnlCamino.setBackground(Color.red);
+        pnlCaminoTor.setBackground(Color.blue);
+        
+        this.add(pnlCamino);
+        this.add(pnlCaminoTor);
+        this.add(lblTortuga);
+        this.add(lblTor);
+        this.add(t);
+        this.add(o);
+    }
+    
+    public void crearHilosCorredores(){
+        ganador = false;
+        lblMensajeGanador.setText("");
+        lblMensajePerdedor.setText("");
+        
+        tortuga = new HiloTortuga(t, 0, 50, "Makuin", lblTortuga,pnlCamino);
+        tor = new HiloTortuga(o, 0, 200, "Thor-Tuga", lblTor,pnlCaminoTor);
 
+        tor.start();
+        tortuga.start();
+        
+        System.out.println("******");
+        repaint();
+    }
+    
+    public void crearHilosDemonio(){
+        DaemonThread daemonThread = new DaemonThread(pnlCamino,1);
+        daemonThread.setName("Hilo demonio 1");
+        daemonThread.setDaemon(true);
+        DaemonThread daemonThread2 = new DaemonThread(pnlCaminoTor,2);
+        daemonThread2.setName("Hilo demonio 2");
+        daemonThread2.setDaemon(true);
+        daemonThread.start();
+        daemonThread2.start();
+    }
 }

@@ -48,24 +48,24 @@ public class HiloTortuga extends Thread {
     @Override
     public void run() {
         rand = new Random();
-        int posAntX = x;
+        
         do {
-            
+            int posAntX = x;
             int a = rand.nextInt(150);
             if (x + a < 700) {
                 x += a;
                 this.tortuga.setBounds(x, y, 100, 100);
                 lblnombre.setBounds(x, y + 100, 100, 40);
-                this.camino.setBounds(0, y, x-posAntX, 100);
+                this.camino.setBounds(posAntX, y, x-posAntX, 100);
                 this.camino.setBorder(BorderFactory.createLineBorder(Color.black));
-                esperarXsegundos(1);
+                esperarXsegundos(2);
                 System.out.println(nombre);
             } else {
                 x = 700;
                 this.tortuga.setBounds(x, y, 100, 100);
                 lblnombre.setBounds(x, y + 100, 100, 40);
-                this.camino.setBounds(0, y, x-posAntX, 100);
-                esperarXsegundos(0);
+                this.camino.setBounds(posAntX, y, x-posAntX, 100);
+                esperarXsegundos(2);
                 System.out.println(nombre);
             }
         } while (x < 700);
@@ -89,8 +89,6 @@ public class HiloTortuga extends Thread {
         }
     }
     
-    private void huellas(){
-        
-    }
+    
 
 }
