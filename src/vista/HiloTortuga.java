@@ -4,11 +4,12 @@
  */
 package vista;
 
+import java.awt.Color;
 import static vista.Pista.meta;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -22,16 +23,18 @@ public class HiloTortuga extends Thread {
     private String nombre;
     private Random rand;
     private JLabel lblnombre;
+    private JPanel camino;
 
     public HiloTortuga() {
     }
 
-    public HiloTortuga(Tortuga tortuga, int x, int y, String nombre, JLabel lblnombre) {
+    public HiloTortuga(Tortuga tortuga, int x, int y, String nombre, JLabel lblnombre,JPanel camino) {
         this.tortuga = tortuga;
         this.x = x;
         this.y = y;
         this.nombre = nombre;
         this.lblnombre = lblnombre;
+        this.camino = camino;
     }
 
     public Tortuga getTortuga() {
@@ -45,18 +48,23 @@ public class HiloTortuga extends Thread {
     @Override
     public void run() {
         rand = new Random();
+        int posAntX = x;
         do {
+            
             int a = rand.nextInt(150);
             if (x + a < 700) {
                 x += a;
                 this.tortuga.setBounds(x, y, 100, 100);
                 lblnombre.setBounds(x, y + 100, 100, 40);
+                this.camino.setBounds(0, y, x-posAntX, 100);
+                this.camino.setBorder(BorderFactory.createLineBorder(Color.black));
                 esperarXsegundos(1);
                 System.out.println(nombre);
             } else {
                 x = 700;
                 this.tortuga.setBounds(x, y, 100, 100);
                 lblnombre.setBounds(x, y + 100, 100, 40);
+                this.camino.setBounds(0, y, x-posAntX, 100);
                 esperarXsegundos(0);
                 System.out.println(nombre);
             }

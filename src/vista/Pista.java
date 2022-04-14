@@ -24,15 +24,24 @@ public class Pista extends javax.swing.JFrame {
     public Pista() {
         t = new Tortuga(0, 50, 100, 100);
         t.setRuta("tortuga.png");
+        
         lblTortuga.setText("Makuin");
         lblTortuga.setBounds(0, 150, 100, 40);
         lblTortuga.setHorizontalAlignment(SwingConstants.CENTER);
+        
         o = new Tortuga(0, 200, 100, 100);
         o.setRuta("tortuga.png");
+        
         lblTor.setText("Thor-Tuga");
         lblTor.setBounds(0, 300, 100, 40);
         lblTor.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        pnlCamino.setBackground(Color.red);
+        pnlCaminoTor.setBackground(Color.blue);
         initComponents();
+        
+        this.add(pnlCamino);
+        this.add(pnlCaminoTor);
         this.add(lblTortuga);
         this.add(lblTor);
         this.add(t);
@@ -98,8 +107,8 @@ public class Pista extends javax.swing.JFrame {
         ganador = false;
         lblMensajeGanador.setText("");
         lblMensajePerdedor.setText("");
-        tortuga = new HiloTortuga(t, 0, 50, "Makuin", lblTortuga);
-        tor = new HiloTortuga(o, 0, 200, "Thor-Tuga", lblTor);
+        tortuga = new HiloTortuga(t, 0, 50, "Makuin", lblTortuga,pnlCamino);
+        tor = new HiloTortuga(o, 0, 200, "Thor-Tuga", lblTor,pnlCaminoTor);
 
         tor.start();
         tortuga.start();
@@ -120,6 +129,8 @@ public class Pista extends javax.swing.JFrame {
     private javax.swing.JLabel lblTortuga = new JLabel();
     private javax.swing.JLabel lblTor = new JLabel();
     private static boolean ganador;
+    private JPanel pnlCamino = new JPanel();
+    private JPanel pnlCaminoTor = new JPanel();
 
     public static synchronized void meta(String nombre) {
         if (ganador) {
