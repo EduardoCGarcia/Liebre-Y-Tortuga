@@ -4,7 +4,6 @@
  */
 package vista;
 
-import Utilerias.FondoPanel;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;

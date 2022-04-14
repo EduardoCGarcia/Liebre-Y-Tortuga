@@ -4,7 +4,7 @@
  */
 package vista;
 
-import Utilerias.FondoPanel;
+
 import java.awt.Color;
 
 /**
@@ -12,11 +12,12 @@ import java.awt.Color;
  * @author EduardoCGarcia
  */
 public class main {
-    static FondoPanel fondo =  new FondoPanel();
+    
     public static void main(String[] args) {
         Pista p = new Pista();
         p.t = new Tortuga(0,0,100,200);
         p.t.setBackground(Color.black);
+        p.t.setRuta("tortuga.png");
         
         p.add(p.t);
         p.setVisible(true);

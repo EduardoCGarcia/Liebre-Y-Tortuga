@@ -4,13 +4,17 @@
  */
 package vista;
 
-import Utilerias.FondoPanel;
-import javax.swing.JPanel;
+import Utilerias.FondoImagen;
 
 
-public class Tortuga extends JPanel{
+public class Tortuga extends FondoImagen{
     private int x,y,w,h;
 
+    @Override
+    public void setRuta(String ruta) {
+        super.setRuta(ruta); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public Tortuga(int x, int y, int w, int h) {
         this.x = x;
         this.y = y;
