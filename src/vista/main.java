@@ -15,12 +15,7 @@ public class main {
     
     public static void main(String[] args) {
         Pista p = new Pista();
-        p.t = new Tortuga(0,0,100,200);
-        p.t.setBackground(Color.black);
-        p.t.setRuta("tortuga.png");
-        
-        p.add(p.t);
         p.setVisible(true);
-        
+
     }
 }

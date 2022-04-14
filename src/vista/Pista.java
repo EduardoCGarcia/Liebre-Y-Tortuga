@@ -4,26 +4,40 @@
  */
 package vista;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-
+import javax.swing.SwingConstants;
 
 /**
  *
  * @author EduardoCGarcia
  */
 public class Pista extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form Pista
      */
     public Pista() {
-        
+        t = new Tortuga(0, 50, 100, 100);
+        t.setRuta("tortuga.png");
+        lblTortuga.setText("Makuin");
+        lblTortuga.setBounds(0, 150, 100, 40);
+        lblTortuga.setHorizontalAlignment(SwingConstants.CENTER);
+        o = new Tortuga(0, 200, 100, 100);
+        o.setRuta("tortuga.png");
+        lblTor.setText("Thor-Tuga");
+        lblTor.setBounds(0, 300, 100, 40);
+        lblTor.setHorizontalAlignment(SwingConstants.CENTER);
         initComponents();
-        
+        this.add(lblTortuga);
+        this.add(lblTor);
+        this.add(t);
+        this.add(o);
+
     }
 
     /**
@@ -36,6 +50,8 @@ public class Pista extends javax.swing.JFrame {
     private void initComponents() {
 
         btnInicio = new javax.swing.JButton();
+        lblMensajeGanador = new javax.swing.JLabel();
+        lblMensajePerdedor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +62,10 @@ public class Pista extends javax.swing.JFrame {
             }
         });
 
+        lblMensajeGanador.setText(" ");
+
+        lblMensajePerdedor.setText(" ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -53,39 +73,74 @@ public class Pista extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 694, Short.MAX_VALUE)
                 .addComponent(btnInicio))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(258, 258, 258)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblMensajeGanador, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMensajePerdedor, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnInicio)
-                .addGap(0, 472, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
+                .addComponent(lblMensajeGanador, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(lblMensajePerdedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        x += 5;
-        y += 5;
-        this.t.setBounds(x,y, 100, 100);
+        ganador = false;
+        lblMensajeGanador.setText("");
+        lblMensajePerdedor.setText("");
+        tortuga = new HiloTortuga(t, 0, 50, "Makuin", lblTortuga);
+        tor = new HiloTortuga(o, 0, 200, "Thor-Tuga", lblTor);
+
+        tor.start();
+        tortuga.start();
+        
+        System.out.println("******");
+        repaint();
+
     }//GEN-LAST:event_btnInicioActionPerformed
-    
-    
-  
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInicio;
+    private static javax.swing.JLabel lblMensajeGanador;
+    private static javax.swing.JLabel lblMensajePerdedor;
     // End of variables declaration//GEN-END:variables
-    public  Tortuga t;
-    private int x, y;
-    
-    public class FondoPanel extends JPanel{
+    public Tortuga t, o;
+    public HiloTortuga tortuga, tor;
+    private javax.swing.JLabel lblTortuga = new JLabel();
+    private javax.swing.JLabel lblTor = new JLabel();
+    private static boolean ganador;
+
+    public static synchronized void meta(String nombre) {
+        if (ganador) {
+            lblMensajePerdedor.setText(nombre + " llegó en segundo lugar");
+
+        } else {
+            ganador = true;
+            lblMensajeGanador.setText(nombre + " llegó en primer lugar");
+        }
+    }
+
+    public class FondoPanel extends JPanel {
+
         private Image imagen;
-        public void pain(Graphics g ){
+
+        public void pain(Graphics g) {
             imagen = new ImageIcon(getClass().getResource("/images/2.jpg")).getImage();
-            g.drawImage(imagen, 0, 0, getWidth(),getHeight(),this);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(true);
             super.paint(g);
         }
     }
-    
+
 }

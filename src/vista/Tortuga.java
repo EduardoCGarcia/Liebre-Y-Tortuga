@@ -9,6 +9,7 @@ import Utilerias.FondoImagen;
 
 public class Tortuga extends FondoImagen{
     private int x,y,w,h;
+    
 
     @Override
     public void setRuta(String ruta) {
@@ -22,6 +23,4 @@ public class Tortuga extends FondoImagen{
         this.h = h;
         this.setBounds(x, y, w, h);
     }
-    
-    
 }
