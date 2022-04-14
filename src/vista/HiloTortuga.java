@@ -50,6 +50,7 @@ public class HiloTortuga extends Thread {
         rand = new Random();
         
         do {
+            
             int posAntX = x;
             int a = rand.nextInt(150);
             if (x + a < 700) {
@@ -58,16 +59,17 @@ public class HiloTortuga extends Thread {
                 lblnombre.setBounds(x, y + 100, 100, 40);
                 this.camino.setBounds(posAntX, y, x-posAntX, 100);
                 this.camino.setBorder(BorderFactory.createLineBorder(Color.black));
-                esperarXsegundos(2);
+                
                 System.out.println(nombre);
             } else {
                 x = 700;
                 this.tortuga.setBounds(x, y, 100, 100);
                 lblnombre.setBounds(x, y + 100, 100, 40);
                 this.camino.setBounds(posAntX, y, x-posAntX, 100);
-                esperarXsegundos(2);
+                
                 System.out.println(nombre);
             }
+            esperarXsegundos(2);
         } while (x < 700);
 
         System.out.println("El hilo " + nombre + " a terminado");

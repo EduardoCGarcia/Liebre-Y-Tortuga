@@ -16,15 +16,18 @@ public class DaemonThread extends Thread {
     }
     
     @Override
-    public synchronized void run() {
+    public void run() {
         int x=0,y,w,h;
-        x = camino.getX();
+        
         y = camino.getY();
         w = camino.getWidth();
         h = camino.getHeight();
         try {
             while (true) {
-                Thread.sleep(2000);
+                Thread.sleep(867);
+                this.camino.setBounds(x, y, 0, h);
+                //this.camino.setBackground(Color.yellow);
+                
                 //this.camino.setBounds(x, y, w, h);
             }
 
