@@ -17,9 +17,9 @@ import javax.swing.JPanel;
  */
 public class HiloCorredor extends Thread {
 
-    private Corredor tortuga;
+    private Corredor corredor;
     private Thread thread;
-    private int x, y;
+    private int x, y,w,h;
     private String nombre;
     private Random rand;
     private JLabel lblnombre;
@@ -28,21 +28,26 @@ public class HiloCorredor extends Thread {
     public HiloCorredor() {
     }
 
-    public HiloCorredor(Corredor tortuga, int x, int y, String nombre, JLabel lblnombre,JPanel camino) {
-        this.tortuga = tortuga;
+
+    public HiloCorredor(Corredor corredor, int x, int y, int w, int h, String nombre, JLabel lblnombre, JPanel camino) {
+        this.corredor = corredor;
         this.x = x;
         this.y = y;
+        this.w = w;
+        this.h = h;
         this.nombre = nombre;
         this.lblnombre = lblnombre;
         this.camino = camino;
     }
-
+    
+    
+    
     public Corredor getTortuga() {
-        return tortuga;
+        return corredor;
     }
 
-    public void setTortuga(Corredor tortuga) {
-        this.tortuga = tortuga;
+    public void setTortuga(Corredor corredor) {
+        this.corredor = corredor;
     }
 
     @Override
@@ -52,25 +57,26 @@ public class HiloCorredor extends Thread {
         do {
             
             int posAntX = x;
-            int a = rand.nextInt(150);
-            if (x + a < 700) {
+            int a = rand.nextInt(200);
+            if (x + a < 900) {
                 x += a;
-                this.tortuga.setBounds(x, y, 100, 100);
-                lblnombre.setBounds(x, y + 100, 100, 40);
-                this.camino.setBounds(posAntX, y, x-posAntX, 100);
+                this.corredor.setBounds(x, y, w, h);
+                lblnombre.setText(nombre + " " + x);
+                lblnombre.setBounds(x, lblnombre.getY(), lblnombre.getWidth(), lblnombre.getHeight());
+                this.camino.setBounds(posAntX, y, x-posAntX, h);
                 this.camino.setBorder(BorderFactory.createLineBorder(Color.black));
                 
-                System.out.println(nombre);
-            } else {
-                x = 700;
-                this.tortuga.setBounds(x, y, 100, 100);
-                lblnombre.setBounds(x, y + 100, 100, 40);
-                this.camino.setBounds(posAntX, y, x-posAntX, 100);
                 
-                System.out.println(nombre);
+            } else {
+                x = 900;
+                this.corredor.setBounds(x, y, w, h);
+                lblnombre.setBounds(x, lblnombre.getY(), lblnombre.getWidth(), lblnombre.getHeight());
+                this.camino.setBounds(posAntX, y, x-posAntX, h);
+                lblnombre.setText(nombre + " " + x);
+                
             }
             esperarXsegundos(2);
-        } while (x < 700);
+        } while (x < 900);
 
         System.out.println("El hilo " + nombre + " a terminado");
         meta(nombre);

@@ -4,6 +4,7 @@
  */
 package vista;
 
+import Utilerias.FondoImagen;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -17,11 +18,21 @@ import javax.swing.SwingConstants;
  * @author EduardoCGarcia
  */
 public class Pista extends javax.swing.JFrame {
-
+    public Corredor t, o;
+    public HiloCorredor tortuga, liebre;
+    private javax.swing.JLabel lblTortuga = new JLabel();
+    private javax.swing.JLabel lblTor = new JLabel();
+    private static boolean ganador;
+    private JPanel pnlCamino = new JPanel();
+    private JPanel pnlCaminoTor = new JPanel();
+    private String imgTortuga = "tortuga2.png";
+    private String imgLiebre = "liebre.png";
+    
     /**
      * Creates new form Pista
      */
     public Pista() {
+        
         crearCorredores();
         initComponents();
         
@@ -60,11 +71,11 @@ public class Pista extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 694, Short.MAX_VALUE)
+                .addGap(0, 994, Short.MAX_VALUE)
                 .addComponent(btnInicio))
             .addGroup(layout.createSequentialGroup()
-                .addGap(258, 258, 258)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(149, 149, 149)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMensajeGanador, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMensajePerdedor, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -73,11 +84,11 @@ public class Pista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(btnInicio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 401, Short.MAX_VALUE)
                 .addComponent(lblMensajeGanador, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblMensajePerdedor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74))
+                .addContainerGap())
         );
 
         pack();
@@ -94,21 +105,17 @@ public class Pista extends javax.swing.JFrame {
     private static javax.swing.JLabel lblMensajeGanador;
     private static javax.swing.JLabel lblMensajePerdedor;
     // End of variables declaration//GEN-END:variables
-    public Corredor t, o;
-    public HiloCorredor tortuga, tor;
-    private javax.swing.JLabel lblTortuga = new JLabel();
-    private javax.swing.JLabel lblTor = new JLabel();
-    private static boolean ganador;
-    private JPanel pnlCamino = new JPanel();
-    private JPanel pnlCaminoTor = new JPanel();
-
+    
+    
+    
     public static synchronized void meta(String nombre) {
         if (ganador) {
             lblMensajePerdedor.setText(nombre + " llegó en segundo lugar");
-
+            lblMensajePerdedor.setForeground(Color.red);
         } else {
             ganador = true;
             lblMensajeGanador.setText(nombre + " llegó en primer lugar");
+            lblMensajeGanador.setForeground(Color.GREEN);
         }
     }
 
@@ -125,18 +132,18 @@ public class Pista extends javax.swing.JFrame {
     }
     
     public void crearCorredores(){
-        t = new Corredor(0, 50, 100, 100);
-        t.setRuta("tortuga.png");
-        
-        lblTortuga.setText("Makuin");
-        lblTortuga.setBounds(0, 150, 100, 40);
+        t = new Corredor(0, 70, 150, 150);
+        t.setRuta(imgTortuga);
+        lblTortuga.setText("LA TORTUGA");
+        lblTortuga.setBounds(0, 200, 100, 40);
         lblTortuga.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTortuga.setForeground(Color.WHITE);
         
-        o = new Corredor(0, 200, 100, 100);
-        o.setRuta("tortuga.png");
-        
-        lblTor.setText("Thor-Tuga");
-        lblTor.setBounds(0, 300, 100, 40);
+        o = new Corredor(0, 300, 150, 150);
+        o.setRuta(imgLiebre);
+        lblTor.setText("LA LIEBRE");
+        lblTor.setForeground(Color.WHITE);
+        lblTor.setBounds(0, 450, 100, 40);
         lblTor.setHorizontalAlignment(SwingConstants.CENTER);
         
         pnlCamino.setBackground(Color.red);
@@ -154,14 +161,12 @@ public class Pista extends javax.swing.JFrame {
         ganador = false;
         lblMensajeGanador.setText("");
         lblMensajePerdedor.setText("");
-        
-        tortuga = new HiloCorredor(t, 0, 50, "Makuin", lblTortuga,pnlCamino);
-        tor = new HiloCorredor(o, 0, 200, "Thor-Tuga", lblTor,pnlCaminoTor);
+        tortuga = new HiloCorredor(t, 0, t.getY(),t.getWidth(), t.getHeight(), "LA TORTUGA", lblTortuga,pnlCamino);
+        liebre = new HiloCorredor(o, 0, o.getY(),o.getWidth(), o.getHeight(), "LA LIEBRE", lblTor,pnlCaminoTor);
 
-        tor.start();
+        liebre.start();
         tortuga.start();
         
-        System.out.println("******");
         repaint();
     }
     

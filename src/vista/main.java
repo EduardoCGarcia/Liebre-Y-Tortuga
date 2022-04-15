@@ -5,7 +5,9 @@
 package vista;
 
 
+import Utilerias.FondoImagen;
 import java.awt.Color;
+import javax.swing.JPanel;
 
 /**
  *
@@ -15,6 +17,11 @@ public class main {
     
     public static void main(String[] args) {
         Pista p = new Pista();
+        FondoImagen fondo = new FondoImagen();
+        fondo.setRuta("fondo2.jpg");
+        fondo.setBounds(0, 0, p.getWidth(), p.getHeight());
+        //fondo.setBackground(Color.red);
+        p.add(fondo);
         p.setVisible(true);
 
     }
