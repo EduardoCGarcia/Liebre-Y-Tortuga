@@ -15,9 +15,9 @@ import javax.swing.JPanel;
  *
  * @author EduardoCGarcia
  */
-public class HiloTortuga extends Thread {
+public class HiloCorredor extends Thread {
 
-    private Tortuga tortuga;
+    private Corredor tortuga;
     private Thread thread;
     private int x, y;
     private String nombre;
@@ -25,10 +25,10 @@ public class HiloTortuga extends Thread {
     private JLabel lblnombre;
     private JPanel camino;
 
-    public HiloTortuga() {
+    public HiloCorredor() {
     }
 
-    public HiloTortuga(Tortuga tortuga, int x, int y, String nombre, JLabel lblnombre,JPanel camino) {
+    public HiloCorredor(Corredor tortuga, int x, int y, String nombre, JLabel lblnombre,JPanel camino) {
         this.tortuga = tortuga;
         this.x = x;
         this.y = y;
@@ -37,11 +37,11 @@ public class HiloTortuga extends Thread {
         this.camino = camino;
     }
 
-    public Tortuga getTortuga() {
+    public Corredor getTortuga() {
         return tortuga;
     }
 
-    public void setTortuga(Tortuga tortuga) {
+    public void setTortuga(Corredor tortuga) {
         this.tortuga = tortuga;
     }
 

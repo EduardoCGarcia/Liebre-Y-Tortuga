@@ -94,8 +94,8 @@ public class Pista extends javax.swing.JFrame {
     private static javax.swing.JLabel lblMensajeGanador;
     private static javax.swing.JLabel lblMensajePerdedor;
     // End of variables declaration//GEN-END:variables
-    public Tortuga t, o;
-    public HiloTortuga tortuga, tor;
+    public Corredor t, o;
+    public HiloCorredor tortuga, tor;
     private javax.swing.JLabel lblTortuga = new JLabel();
     private javax.swing.JLabel lblTor = new JLabel();
     private static boolean ganador;
@@ -125,14 +125,14 @@ public class Pista extends javax.swing.JFrame {
     }
     
     public void crearCorredores(){
-        t = new Tortuga(0, 50, 100, 100);
+        t = new Corredor(0, 50, 100, 100);
         t.setRuta("tortuga.png");
         
         lblTortuga.setText("Makuin");
         lblTortuga.setBounds(0, 150, 100, 40);
         lblTortuga.setHorizontalAlignment(SwingConstants.CENTER);
         
-        o = new Tortuga(0, 200, 100, 100);
+        o = new Corredor(0, 200, 100, 100);
         o.setRuta("tortuga.png");
         
         lblTor.setText("Thor-Tuga");
@@ -155,8 +155,8 @@ public class Pista extends javax.swing.JFrame {
         lblMensajeGanador.setText("");
         lblMensajePerdedor.setText("");
         
-        tortuga = new HiloTortuga(t, 0, 50, "Makuin", lblTortuga,pnlCamino);
-        tor = new HiloTortuga(o, 0, 200, "Thor-Tuga", lblTor,pnlCaminoTor);
+        tortuga = new HiloCorredor(t, 0, 50, "Makuin", lblTortuga,pnlCamino);
+        tor = new HiloCorredor(o, 0, 200, "Thor-Tuga", lblTor,pnlCaminoTor);
 
         tor.start();
         tortuga.start();
